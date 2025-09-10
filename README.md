@@ -1,14 +1,11 @@
-# IMT-247 · Instrumentación Industrial — Plantillas y Estructura de Proyecto
+# IMT-247 · Instrumentación Industrial
 
-Repositorio base para **prácticas, guías y documentación** de la asignatura IMT-247 (UCB · Tarija).
+Repositorio base para **prácticas, guías y documentación** de la asignatura IMT-247.
 Incluye:
 - Configuración inicial (`README.md`, `.gitignore`, licencias).
 - **Plantillas LaTeX** para reportes de prácticas (artículo) y presentaciones (Beamer).
 - **Carpeta de ejemplo** con una estructura documental para proyectos P&ID y fichas técnicas.
-- Contenedor `guias/` para alojar guías de trabajo (se añadirán en otra conversación).
-- **CI opcional** para compilar LaTeX con GitHub Actions.
-
-> Sugerencia: Código (scripts) bajo **MIT** y contenido educativo (plantillas/guías) bajo **CC BY 4.0**.
+- **Guías de Trabajo** para alojar las guías de evaluación.
 
 ---
 
@@ -16,63 +13,42 @@ Incluye:
 
 ```
 .
-├── .github/
-│   └── workflows/
-│       └── latex.yml
-├── plantillas/
+├── Plantillas/
 │   └── latex/
-│       ├── practica_imt247.tex
+│       ├── informe_imt247.tex
 │       └── beamer_imt247.tex
-├── proyecto-ejemplo/
-│   ├── 00_Documentacion/
-│   │   ├── 01_PID/
-│   │   │   └── README.md
-│   │   ├── 02_HojasTecnicas/
-│   │   │   └── README.md
-│   │   ├── 03_Cotizaciones/
-│   │   │   └── README.md
-│   │   └── 04_Listados/
-│   │       └── README.md
-│   └── README.md
+├── 00_Estructura_Ejemplo/
+│   ├── 00_Reporte_General.xlms/
+│   ├── 01_Fichas_Tecnicas/
+│   │   └── 00_Ejemplo_Ficha_Tecnica.xlms/
+│   ├── 02_Diagrams/
+│   │   ├── 01_P_AND_ID/
+│   │   ├── 02_Electric/
+│   │   ├── 03_Neumatic/
+│   │   ├── 04_Control/
+│   │   ├── 05_Mechanic/
+│   │   ├── 06_Structure/
+│   │   ├── 07_Electronic/
+│   │   └── 08_Hydraulic/
+│   ├── 03_Catalogos/
+│   ├── 04_Administracion/
+│   │   ├── 01_Cotizaciones/
+│   │   ├── 02_Presupuesto/
+│   │   ├── 03_Documentacion/
+│   │   └── 04_Cronograma/
 ├── guias/
-│   └── README.md
+│   └── APN1.pdf
 ├── .gitignore
 ├── LICENSE        (MIT — para código)
 ├── LICENSE-docs   (CC BY 4.0 — para materiales docentes)
 └── README.md
 ```
 
-## Uso rápido
-
-1) **Coloca** tus plantillas y estructura reales en las carpetas correspondientes.
-2) Compila LaTeX localmente (ejemplo con `latexmk`):
-   ```bash
-   latexmk -pdf -interaction=nonstopmode plantillas/latex/practica_imt247.tex
-   latexmk -pdf -interaction=nonstopmode plantillas/latex/beamer_imt247.tex
-   ```
-3) (Opcional) **CI**: en GitHub, activa *Actions*. El flujo `latex.yml` compila automáticamente los `.tex` dentro de `plantillas/latex/` tras cada push.
-
-## Publicación
-
-- Crea el repo en GitHub (vacío) y luego:
-  ```bash
-  git init
-  git add .
-  git commit -m "Estructura base IMT-247"
-  git branch -M main
-  git remote add origin git@github.com:USUARIO/NOMBRE_REPO.git
-  git push -u origin main
-  ```
-
-> Ajusta el *remote* SSH a tu cuenta y nombre de repositorio.
-
 ---
 
 ## Buenas prácticas
 - Mantén **nombres consistentes** para instrumentos y lazos (según ISA/ISO).
 - Versiona **diagramas P&ID** (formato editable preferido) y exporta **PDFs** para revisión.
-- Agrega `docs/` o `pages/` si quieres publicar guías con GitHub Pages.
-- Usa *issues* y *milestones* para seguimiento de prácticas/proyectos.
 
 ---
 
