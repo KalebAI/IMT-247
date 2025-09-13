@@ -1,0 +1,421 @@
+% Archivo principal: main.tex
+\documentclass[12pt,letterpaper]{report}
+%---------------------------------------------------------------------
+% Paquetes
+%---------------------------------------------------------------------
+\usepackage[justification=centering]{caption}
+\usepackage{multicol}
+\usepackage{pdfpages}
+
+%---------------------------------------------------------------------
+% Importar configuración externa
+%---------------------------------------------------------------------
+\input{configuracion}
+\renewcommand{\cfttabpresnum}{Tabla ~ } % Prefijo: "Tabla "
+\renewcommand{\cfttabaftersnum}{: }   % Sufijo: ": "
+\setlength{\cfttabnumwidth}{4em} 
+%---------------------------------------------------------------------
+% Definir datos del documento
+%---------------------------------------------------------------------
+\departamento{ciencias de la tecnología e innovación}
+\titulo{título del caso}
+\autor{\\Estudiante 1 \\Estudiante 2 \\Estudiante 3 \\Estudiante 4}
+\docente{\\Ing. Kaleb Irahola Azad}
+\fecha{\number\year}
+\carrera{Ingeniería Mecatrónica}
+%---------------------------------------------------------------------
+% Ajustes de numeración y estilos de página
+%---------------------------------------------------------------------
+\setcounter{secnumdepth}{5}  % Hasta subparagraph numerado
+\fancypagestyle{inicio}{
+	\fancyhf{} % Limpia encabezados y pies
+	% Define el encabezado a la izquierda tanto para páginas pares como impares
+	\fancyhead[LO,LE]{Mi Encabezado Personalizado}
+	\renewcommand{\headrulewidth}{0.4pt} % Línea de separación (opcional)
+}
+\begin{document}
+	%---------------------------------------------------------------------
+	% Portadas
+	%---------------------------------------------------------------------
+	\caratula
+	\newpage
+	\clearpage
+	\pagestyle{empty}
+		
+	%---------------------------------------------------------------------
+	% Índices (índice general, figuras, tablas)
+	%---------------------------------------------------------------------
+	\configurarIndices
+	\tableofcontents
+	\thispagestyle{empty}
+	\newpage
+	\listoffigures
+	\thispagestyle{empty}
+	\newpage
+	\listoftables
+	\thispagestyle{empty}
+	\newpage
+	
+	%---------------------------------------------------------------------
+	% Iniciar numeración normal
+	%---------------------------------------------------------------------
+	\iniciarNumeracion
+	%---------------------------------------------------------------------
+	% Secciones principales
+	%---------------------------------------------------------------------
+	\renewcommand{\thesection}{\arabic{section}}
+	\begin{center}
+		\section{Bases del Proyecto}
+	\end{center}
+	\subsection{Problema}
+	Desarrollar del problema.
+	\subsection{Objetivos del proyecto}
+	\subsubsection{Objetivo general}
+	Objetivo general (formato SMART).
+	\subsubsection{Objetivos específicos}
+	\textit{<<No deben de ser más de 5 objetivos específicos>>}
+	\begin{enumerate}
+		\item objetivo específico 1
+		\item objetivo específico 2
+		\item objetivo específico 3
+	\end{enumerate}
+	\subsection{Descripción del proceso}
+	Describir el proceso de la forma más clara posible, pueden añadir \textit{subsections}, \textit{images} o \textit{tables} según lo requieran, pero consideren mantener el formato del documento para que la indexación sea adecuada.
+	\subsection{Normativa}
+	Describir las normativas de referencia para cada proceso, tomar como referencia las mencionadas en el archivo de guía.
+	
+	%---------------------------------------------------------------------
+	\newpage
+	\begin{center}
+		\section{Mapa del proceso}
+	\end{center}
+	\subsection{Diagrama de Bloques}
+	Representar el flujo general del proceso desde los \emph{battery limits}, identificando operaciones unitarias, corrientes y utilidades.
+	
+	La representación debe ser la de el \noindent\textbf{Nivel dos} de los niveles de diseño empleados en el desarrollo de proyectos de la carrera de Ingeniería Mecatrónica
+	
+	\subsection{Lista de Servicios}
+	Completar la siguiente tabla para todas las utilidades del proceso.
+	
+	\begin{table}[ht]
+		\captionsetup{justification=raggedright,singlelinecheck=false}
+		% -- La 'caption' define el título que aparecerá en el índice de tablas.
+		% -- En estilo APA 7, normalmente se pone el número de tabla en negrita
+		%    y debajo (o en la misma línea) el título en cursiva.
+		\caption{\textit{Listado de Servicios del Proceso}}
+		\label{tab:servicios} % Para referenciarla con \ref{tab:variables}
+		\centering
+		\begin{tabular}{llccl}
+			\toprule
+			\textbf{Servicio} & \textbf{Fuente} & \textbf{Condiciones} & \textbf{Pico/Prom} & \textbf{Notas} \\
+			\midrule
+			Aire comprimido & Compresor & \SI{10}{\bar} & \SI{20}{\bar} & Calidad ISO 8573-1 \\
+			Eléctrico & Tablero & \SI{374}{\volt} & \SI{380}{\volt} & Protecciones/arranques \\
+			Vapor & Caldera & \shortstack{110--130 \si{\celsius} \\ 4 \si{\bar}} & \SI{500}{\kilo\gram\per\hour} & Reductora, trampa \\
+			\bottomrule
+		\end{tabular}
+		
+		% -- Nota al pie de la tabla, en flushleft, según convención APA (pequeña explicación).
+		\begin{flushleft}
+			\textit{Nota}. Descripción de la tabla, o indicación de la fuente. \\
+			\textit{<<Completar información en el campo de midrule>>}
+		\end{flushleft}
+	\end{table}
+	
+	\subsection{Descripción de las Variables}
+	Consideren los siguientes aspectos al describir las variables:
+	
+	\begin{itemize}
+		\item \textbf{Identificación de la variable:} nombre y símbolo (por ejemplo: temperatura de retención, presión de tanque, caudal de alimentación).
+		\item \textbf{Ubicación en el proceso:} equipo, línea o nodo del proceso donde se mide o actúa la variable.
+		\item \textbf{Rango operativo y unidades:} condiciones de diseño y operación normal (ejemplo: 60--95~\si{\celsius}).
+		\item \textbf{Requerimientos de exactitud y tiempo de respuesta:} según la criticidad de la variable para la calidad, la seguridad o la eficiencia.
+		\item \textbf{Elemento primario y principio de medición:} tipo de sensor o transductor más adecuado (ejemplo: RTD Pt100 para temperatura, transmisor diferencial para presión).
+		\item \textbf{Señal y comunicación:} forma de transmisión (4--20~mA, HART, Modbus, Profibus, etc.) y cualquier requerimiento de integración al sistema de control.
+		\item \textbf{Condiciones especiales:} materiales en contacto, certificaciones (3-A/EHEDG, ATEX, IP/NEMA) o ambientes de instalación.
+	\end{itemize}
+	\subsection{Identificación de Riesgos}
+	Identificar los riesgos según el análisis del proceso y los equipos, señalarlos en la siguiente tabla:
+	\begin{table}[ht]
+		\captionsetup{justification=raggedright,singlelinecheck=false}
+		% -- La 'caption' define el título que aparecerá en el índice de tablas.
+		% -- En estilo APA 7, normalmente se pone el número de tabla en negrita
+		%    y debajo (o en la misma línea) el título en cursiva.
+		\caption{\textit{Listado de Riesgos Identificados}}
+		\label{tab:riesgos} % Para referenciarla con \ref{tab:variables}
+		\centering
+		\begin{tabular}{lllll}
+			\toprule
+			\textbf{Unidad} & \textbf{Variable} & \textbf{Causa de falla} & \textbf{Consecuencia} & \textbf{Salvaguardas pasivas} \\
+			\midrule
+			VRU & Gas & \%LEL alto (fuga) & Riesgo de explosión & ESD: paro de bombas y cierre de válvulas \\
+			Mangas & $\Delta P$ & Carga de polvo excesiva & Daño a mangas & Limpieza por pulsos, alarma de alta presión \\
+			\bottomrule
+		\end{tabular}
+		
+		% -- Nota al pie de la tabla, en flushleft, según convención APA (pequeña explicación).
+		\begin{flushleft}
+			\textit{Nota}. 
+			La columna \textbf{Unidad} identifica el equipo o etapa del proceso; 
+			\textbf{Variable} corresponde a la magnitud física monitoreada; 
+			\textbf{Causa de falla} describe la desviación o anomalía posible; 
+			\textbf{Consecuencia} señala el impacto en seguridad, calidad o continuidad; 
+			y \textbf{Salvaguardas pasivas} son los dispositivos o diseños que mitigan el riesgo sin necesidad de intervención activa. \\
+			\textit{<<Completar información en el campo de midrule>>}
+		\end{flushleft}
+	\end{table}
+	
+	%---------------------------------------------------------------------
+	\newpage
+	\begin{center}
+		\section{P\&ID}
+	\end{center}
+	\subsection{Diagrama}
+	Presentar el diagrama P\&ID con el formato de imagen correcto.
+	\subsection{Lista de tags ISA 5.1}
+	Completar la lista completa de los tags siguiendo la norma ISA 5.1 según el siguiente detalle: \\
+	\noindent\textbf{Convención correcta de tags para la norma (ISA~5.1):}
+	\begin{center}
+		\[
+		\texttt{[PLANTA]-[UNIDAD]-[LAZO][FuncLet]-[N\textsuperscript{o}]}
+		\]
+		\emph{Ej.:} \texttt{PIL-HTST-TIC-101}; \texttt{YPFB-LLN-PI-204}; \texttt{ARJ-FER-FT-302}; \texttt{ELP-DUST-DPIC-410}.
+	\end{center}
+	\begin{table}[ht]
+		\captionsetup{justification=raggedright,singlelinecheck=false}
+		% -- La 'caption' define el título que aparecerá en el índice de tablas.
+		% -- En estilo APA 7, normalmente se pone el número de tabla en negrita
+		%    y debajo (o en la misma línea) el título en cursiva.
+		\caption{\textit{Listado de Riesgos Identificados}}
+		\label{tab:tag_ISA} % Para referenciarla con \ref{tab:variables}
+		\centering
+		\begin{tabular}{cllll}
+			\toprule
+			\textbf{N°} & \textbf{Unidad} & \textbf{Variable} & \textbf{Función} & \textbf{Tag} \\
+			\midrule
+			1 & HTST & Temperatura & Controlador de temperatura & PIL-HTST-TIC-101 \\
+			2 & HTST & Caudal leche & Controlador de caudal & PIL-HTST-FIC-102 \\
+			3 & HTST & $\Delta P$ placas & Controlador de presión diferencial & PIL-HTST-DPIC-103 \\
+			4 & Engarrafado & Presión manifold & Controlador de presión & YPFB-ENG-PIC-201 \\
+			5 & Engarrafado & Caudal mercaptano & Controlador de caudal & YPFB-ENG-FIC-202 \\
+			6 & Engarrafado & Gas (LEL) & Indicador/alarma de gas EX & YPFB-ENG-GAI-203 \\
+			7 & Fermentación & Temperatura mosto & Controlador de temperatura & ARJ-FER-TIC-301 \\
+			8 & Fermentación & Presión tanque & Controlador de presión & ARJ-FER-PIC-302 \\
+			9 & Fermentación & °Brix & Indicador de concentración & ARJ-FER-BXI-303 \\
+			10 & Áridos & $\Delta P$ mangas & Controlador de presión diferencial & ELP-DUST-DPIC-401 \\
+			11 & Áridos & Velocidad ventilador & Variador de velocidad & ELP-DUST-VSD-402 \\
+			12 & Áridos & Vibración molino & Indicador de vibración & ELP-DUST-VIBI-403 \\
+			\bottomrule
+		\end{tabular}
+		
+		% -- Nota al pie de la tabla, en flushleft, según convención APA (pequeña explicación).
+		\begin{flushleft}
+			\textit{Nota}. Descripción de la tabla, o indicación de la fuente. \\
+			\textit{<<Completar información en el campo de midrule>>}
+		\end{flushleft}
+	\end{table}
+	
+	%---------------------------------------------------------------------
+	\newpage
+	\begin{center}
+		\section{Selección de instrumentación, actuadores y equipos}
+	\end{center}
+	
+	Justificar técnicamente cada selección considerando, como mínimo:
+	\begin{itemize}
+		\item \textbf{Rango operativo y exactitud}: acorde al diseño del proceso y a la criticidad de la variable.
+		\item \textbf{Principio de medición}: compatibilidad con el fluido/medio y con la dinámica requerida.
+		\item \textbf{Materiales y conexión}: contacto de proceso (acero inoxidable sanitario, recubrimientos, brida/roscado/sanitario).
+		\item \textbf{Comunicación y señal}: 4--20~mA, HART, Modbus, Profibus u otra requerida por el sistema de control.
+		\item \textbf{Ambiente/Clase de área}: IP/NEMA, IEC~60079/ATEX (si aplica), higiene (3-A/EHEDG) y temperatura ambiente.
+		\item \textbf{Certificaciones y normativas}: según el sector (lácteos, GLP, áridos/vino).
+		\item \textbf{Mantenimiento y ciclo de vida}: repuestos, calibración y accesibilidad.
+	\end{itemize}
+	\textit{<<Desarrollar una subsection por cada instrumento, actuador y equipo>>}
+	
+	%---------------------------------------------------------------------
+	\newpage
+	\begin{center}
+		\section{Control y seguridad}
+	\end{center}
+	
+	\subsection{Lazos de control}
+	Describa, por cada lazo, la \textbf{PV}, \textbf{MV}, setpoint, límites, modos (Auto/Manual/Cascada), estrategia (básico, cascada, feedforward, \textit{split-range}), condiciones de arranque/parada y manejo de fallas (alarma, \emph{latch}, reset).
+	
+	Completar la tabla con la información de cada columna:
+	
+	\begin{table}[ht]
+		\captionsetup{justification=raggedright,singlelinecheck=false}
+		\caption{\textit{Lazos de control (extracto)}}
+		\label{tab:lazos}
+		\centering
+		\begin{tabular}{llllll}
+			\toprule
+			\textbf{Lazo} & \textbf{PV} & \textbf{MV} & \textbf{Estrategia} & \textbf{SP} & \textbf{Interlocks} \\
+			\midrule
+			PIL-HTST-TIC-101 & T retención & TV vapor & Cascada &  \SI{72}{\celsius} & Desvío si T$<$SP \\
+			YPFB-ENG-FIC-202 & F mercaptano & Válvula dosif. & Relación & seg. GLP & ESD por \%LEL alto \\
+			ARJ-FER-TIC-301 & T fermentador & Válvula glicol & Cascada & perfil T & Bloqueo trasiego por CO\textsubscript{2} \\
+			ELP-DUST-DPIC-410 & $\Delta P$ mangas & Pulsos limpieza & Básico &  objetivo DP & Alarma alta T gases \\
+			\bottomrule
+		\end{tabular}
+		\begin{flushleft}
+			\textit{Nota}. La narrativa debe detallar modos, límites, bumpless transfer, y criterios de sintonía (Kp, Ti, Td) por lazo. \\
+			La columna \textbf{Lazo} identifica el tag y número de control; 
+			\textbf{PV} es la variable de proceso medida por el sensor; 
+			\textbf{MV} es la variable manipulada por el actuador o elemento final de control; 
+			\textbf{Estrategia} indica el tipo de control implementado (básico, cascada, feedforward, \textit{split-range}); 
+			\textbf{SP} es el valor de referencia o consigna; 
+			y \textbf{Interlocks} describen acciones de seguridad o lógicas asociadas al lazo.
+		\end{flushleft}
+	\end{table}
+	
+	\subsection{Matriz Causa--Efecto}
+	Listar disparadores (proceso y fallas), lógica (AND/OR/temporización), acción, set/reset y prioridad.
+	
+	\begin{table}[ht]
+		\captionsetup{justification=raggedright,singlelinecheck=false}
+		\caption{\textit{Matriz Causa--Efecto (extracto)}}
+		\label{tab:causa_efecto}
+		\centering
+		\begin{tabular}{lllll}
+			\toprule
+			\textbf{Disparador} & \textbf{Lógica} & \textbf{Acción} & \textbf{Set/Reset} & \textbf{Prioridad} \\
+			\midrule
+			\%LEL alto en patio & $\geq$ umbral \& persist. & ESD: parar bombas, cerrar válvulas & Manual & Crítica \\
+			T retención baja & $<$ SP (t\,$>$\,x s) & FDV a desvío, alarma & Auto & Alta \\
+			$\Delta P$ mangas alta & $>$ SP & Pulso limpieza, aviso mantenimiento & Auto & Media \\
+			\bottomrule
+		\end{tabular}
+		\begin{flushleft}
+			\textit{Nota}. Documente pruebas funcionales (frecuencia, método y aceptación) para cada Causa--Efecto. \\
+			La columna \textbf{Disparador} define la condición anómala detectada; 
+			\textbf{Lógica} especifica cómo se evalúa la señal (umbral, AND/OR, temporización); 
+			\textbf{Acción} describe la respuesta automática o manual que se ejecuta; 
+			\textbf{Set/Reset} indica el modo de restablecimiento del sistema; 
+			y \textbf{Prioridad} clasifica la criticidad de la acción (crítica, alta, media, baja).
+		\end{flushleft}
+	\end{table}
+	
+	%---------------------------------------------------------------------
+	\newpage
+	\begin{center}
+		\section{Presupuesto y fuentes}
+	\end{center}
+		
+	\subsection{Tabla de presupuesto}
+	Usar cotizaciones reales y, donde no sea posible, estimación por proximidad con fuente citada.
+	
+	\begin{table}[ht]
+		\captionsetup{justification=raggedright,singlelinecheck=false}
+		\caption{\textit{Presupuesto de instrumentación y equipos}}
+		\label{tab:presupuesto}
+		\centering
+		\begin{tabular}{llllll}
+			\toprule
+			\textbf{Ítem} & \textbf{Tag/Descripción} & \textbf{Cant.} & \textbf{Unidad} & \textbf{P. unit. [BOB]} & \textbf{Subtotal [BOB]} \\
+			\midrule
+			1 & PIL-HTST-TT-101 (RTD sanitaria) & 1 & un & \num{180} & \num{180} \\
+			2 & YPFB-ENG-FT-202 (caudalímetro) & 1 & un & \num{950} & \num{950} \\
+			3 & ELP-DUST-DP-410 (Tx DP) & 2 & un & \num{320} & \num{640} \\
+			\midrule
+			\multicolumn{5}{r}{\textbf{Total (extracto)}} & \num{1770} \\
+			\bottomrule
+		\end{tabular}
+		\begin{flushleft}
+			\textit{Nota}. Indique la \textbf{fuente} (cotización/catálogo) de cada precio en un archivo de \texttt{Excel inscrito en la estructura documental}. Incluya válvulas, accesorios, montaje, cableado y contingencias según aplique.
+		\end{flushleft}
+	\end{table}
+	
+	
+	%---------------------------------------------------------------------
+	% Bibliografía
+	%---------------------------------------------------------------------
+	\newpage
+	\begin{center}
+		\section*{Bibliografía}
+	\end{center}
+	\addcontentsline{toc}{section}{Bibliografía}
+	\bibliographystyle{IEEEtran}
+	\bibliography{referencias}
+	
+	
+	%---------------------------------------------------------------------
+	% Anexos
+	%---------------------------------------------------------------------
+	\newpage
+	\begin{center}
+		\section*{Ejemplos de Figuras, Tablas y Citaciones}
+	\end{center}
+	Aquí se muestran ejemplos de como insertar figuras y tablas en el documento. \\
+	\textcolor{red}{Borrar este apartado para presentar el documento}
+	
+	\subsection*{Ejemplo de Figuras}
+	\begin{figure}[ht]
+		
+		% Incrementa el contador de figuras para numerarlas automáticamente
+		\refstepcounter{figure}
+		% Número de la figura en negrita
+		\textbf{Figura \thefigure}\\[0.5em]
+		% Título de la figura en cursiva (una línea debajo del número)
+		\textit{Título breve pero descriptivo de la imagen}\\[1em]
+		\begin{center}
+			
+			\includegraphics[width=0.8\textwidth]{eje1.png}\\[1em]
+		\end{center}
+		% Inserción de la imagen
+		
+		% Leyenda: explicación de símbolos o detalles de la imagen
+		
+		% Nota: información adicional si fuese necesaria
+		\normalsize Nota: Se incluye la nota únicamente cuando es necesaria para aclarar información adicional.
+		\addcontentsline{lof}{figure}{Figura \thefigure. \textit{Título breve pero descriptivo}}
+		
+	\end{figure}
+	\newpage
+	\subsection*{Ejemplo de Tablas}
+	
+	\begin{table}[ht]
+		\captionsetup{justification=raggedright,singlelinecheck=false}
+		% -- La 'caption' define el título que aparecerá en el índice de tablas.
+		% -- En estilo APA 7, normalmente se pone el número de tabla en negrita
+		%    y debajo (o en la misma línea) el título en cursiva.
+		\caption{\textit{Ejemplo de tabla}}
+		\label{tab:variables} % Para referenciarla con \ref{tab:variables}
+		\centering
+		\begin{tabular}{l c}
+			\toprule
+			\textbf{Variable} & \textbf{Valor} \\
+			\midrule
+			Variable A        & 10 \\
+			Variable B        & 20 \\
+			\bottomrule
+		\end{tabular}
+		
+		% -- Nota al pie de la tabla, en flushleft, según convención APA (pequeña explicación).
+		\begin{flushleft}
+			\textit{Nota}. Ejemplo de tabla en estilo APA 7. * p < .05.  
+			Los datos se obtuvieron de la base de datos interna.
+		\end{flushleft}
+	\end{table}
+	
+	\subsection*{Ejemplo de Citaciones}
+	
+	“El tratamiento térmico HTST se fundamenta en parámetros de letalidad validados por la literatura \cite{walstra2006,tetrapak2025}.”
+	
+	“La clasificación de servicios y utilidades sigue la práctica recomendada en plantas de alimentos y en minería \cite{niosh2019}.”
+
+	“Para áreas con riesgo de explosión de gas, aplica IEC 60079 y NFPA 58 \cite{iec60079,nfpa58_2024}.”
+	“En procesos con polvo combustible, se deben seguir guías NFPA 68/69/654 y manuales de control de polvo \cite{niosh2019}.”
+	
+	“La convención de tags se definió de acuerdo a ISA 5.1 y al estándar recomendado en Perry’s Chemical Engineers’ Handbook \cite{wills2015}.”
+	
+	“Los equipos en contacto con producto lácteo deben cumplir guías EHEDG y 3-A \cite{tetrapak2025}.”
+	
+	“La conducción de fermentación se ajusta a prácticas descritas por Jackson \cite{jackson2014} y el código de la OIV \cite{oiv2022}.”
+	
+	“Los principios de control de procesos y seguridad instrumentada siguen IEC 61511 y ejemplos de la industria cementera \cite{alsop2019}.”
+	
+	“Los precios unitarios se basaron en catálogos industriales de referencia \cite{tetrapak2025,alsop2019}.”
+	
+\end{document}
